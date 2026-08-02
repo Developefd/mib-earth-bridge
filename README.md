@@ -1,6 +1,7 @@
 # GoogleEarthMIB2
 Restore Google Earth functionality on the MIB2 unit by running a proxy that relays requests back to original Google Keyhole servers correctly.
 ## How does it work?
+It creates an HTTP server which acts as a clone (sort of) and modifies the requests sent by the MIB2 unit so that they don't get blocked by Google's Keyhole servers. Google blocks the token `QNX` in user agents from making requests to their servers, simply replacing it fixes the problem.
 ## How do I use it?
 ### 1. Run the proxy server.
 ```
@@ -21,6 +22,6 @@ Usage: node ge_server.js [options]
   --debug             on any non-200 upstream reply, dump the full outgoing
                       request headers and a preview of the response body
 ```
-### 2. Hijack the DNS on the MMI for kh.google.com and point it to your server's IP. (The requests are always sent to port 80)
+### 2. Hijack the DNS on the MMI for kh.google.com and point it to your server's IP. (The requests are always sent to port 80 via HTTP)
 You can do this by modifying the `/etc/hosts` file in the MMX.
 ### 4. Restart the unit and switch to Google Earth view.
