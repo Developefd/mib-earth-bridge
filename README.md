@@ -1,4 +1,4 @@
-# GoogleEarthMIB2
+# mib-earth-bridge
 Restore Google Earth functionality on the MIB2 unit by running a proxy that relays requests back to original Google Keyhole servers correctly.
 ## How does it work?
 It creates an HTTP server which acts as a clone (sort of) and modifies the requests sent by the MIB2 unit so that they don't get blocked by Google's Keyhole servers. Google blocks the token `QNX` in user agents from making requests to their servers, simply replacing it fixes the problem.
