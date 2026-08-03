@@ -24,4 +24,41 @@ Usage: node ge_server.js [options]
 ```
 ### 2. Hijack the DNS on the MMI for kh.google.com and point it to your server's IP. (The requests are always sent to port 80 via HTTP)
 You can do this by modifying the `/etc/hosts` file in the MMX.
+### 3. Hook the `ServiceListManager.java` to always return a license.
+```java
+public void updateToken(String string, String string2, Object object) {
+        ChoiceModelApp choiceModelApp;
+        this.logChannel.log(10000000, "ServiceListHandler#updateToken(%1, %2, %3)", (Object)string, (Object)string2, (Object)object.toString());
+        int n = -1;
+        if (string == null || string2 == null) {
+            this.logChannel.log(1000000, "ServiceListHandler#updateToken() - serviceID or token is NULL -> Ignore Update");
+            return;
+        }
+        if (object != null) {
+            try {
+                n = ((Integer)object).intValue(); // This line didnt decompile correctly so make sure to copy this one too.
+            }
+            catch (ClassCastException classCastException) {
+                this.logChannel.log(100000, "ServiceListHandler#updateToken() - Can not cast newValue to int! I'll set it to -1");
+            }
+        }
+        if ((choiceModelApp = this.mapServiceIdToVisibilityModel(string, string2)) == null) {
+            this.logChannel.log(100000, "ServiceListHandler#updateToken cannot map service %1 to a visibility model");
+            return;
+        }
+        /* INJECTED */
+        if ("service_dsi_satellitemaps".equals(string)) {
+            n = 1;
+        }
+        /* END INJECTED */
+	    choiceModelApp.setStatus(n);
+        if (n == 3 || n == -1) {
+            choiceModelApp.setValue(0);
+            this.forceServiceShutDown(string);
+        } else {
+            choiceModelApp.setValue(1);
+        }
+        this.notifyGEVisibility(string);
+    }
+```
 ### 4. Restart the unit and switch to Google Earth view.
