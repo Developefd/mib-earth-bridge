@@ -23,7 +23,8 @@ Usage: node ge_server.js [options]
                       request headers and a preview of the response body
 ```
 ### 2. Hijack the DNS on the MMI for kh.google.com and point it to your server's IP. (The requests are always sent to port 80 via HTTP)
-You can do this by modifying the `/etc/hosts` file in the MMX.
+You can do this by modifying the `/etc/hosts` file on the MMX.
+## (Step 3 may differ as this is for MHS2_xx_AU_xxxx)
 ### 3. Hook the `de.audi.tghu.navi.app.online.ServiceListHandler.java` to always return a license.
 ```java
 public void updateToken(String string, String string2, Object object) {
