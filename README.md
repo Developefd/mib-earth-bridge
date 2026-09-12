@@ -1,3 +1,5 @@
+<a href="https://www.buymeacoffee.com/latealways" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/orange_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
+
 # mib-earth-bridge
 Restore Google Earth functionality on the MIB2 unit by running a proxy that relays requests back to original Google Keyhole servers correctly.
 ## How does it work?
